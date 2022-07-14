@@ -1,0 +1,53 @@
+.skritch {
+    background-color: darkgoldenrod;
+    text-align: center;
+    margin: 120px;
+   
+}
+
+.navbar {
+    background-color: azure;
+    position: fixed;
+    top: 0;
+    width: 99%;
+    text-indent: 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar p {
+    text-indent: 50px;
+}
+
+#remember {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+#login {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+#skritch {
+    width: 100%;
+    max-width: fit-content;
+}
+
+#accordionExample {
+    margin: 10%;
+    margin-right: 10%;
+}
+
+#spook {
+    width: 50%;
+    max-width: fit-content;
+    object-position: center;
+}
