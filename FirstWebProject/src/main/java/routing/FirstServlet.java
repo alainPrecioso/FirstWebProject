@@ -6,6 +6,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -148,12 +149,14 @@ public class FirstServlet extends HttpServlet {
 	protected void save(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 		if (isFieldNull(request, "username")) {
+			System.out.println("isfieldnull username");
 			request.setAttribute("signInCheck", "Username empty");
 			request.setAttribute("sign", "signing");
 			index(request, response);
 			return;
 		}
 		if (isFieldNull(request, "password")) {
+			System.out.println("isfieldnull password");
 			request.setAttribute("signInCheck", "Password empty");
 			request.setAttribute("sign", "signing");
 			index(request, response);
@@ -161,13 +164,14 @@ public class FirstServlet extends HttpServlet {
 		}
 
 		if (doUserExists(request.getParameter("username"))) {
+			System.out.println("save douserexists test");
 			request.setAttribute("signInCheck", "User already exists");
 			request.setAttribute("sign", "signing");
 			index(request, response);
 			return;
 		}
 
-		if (!areStringsSame(request.getParameter("password"), request.getParameter("password2"))) {
+		if (!areStringsSameIC(request.getParameter("password"), request.getParameter("password2"))) {
 			request.setAttribute("signInCheck", "Password not the same");
 			request.setAttribute("sign", "signing");
 			index(request, response);
@@ -234,7 +238,8 @@ public class FirstServlet extends HttpServlet {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				if (areStringsSame(rs.getString(2), username)) {
+				if (areStringsSameIC(rs.getString(2), username)) {
+					System.out.println("douserexists test true");
 					return true;
 				}
 			}
@@ -242,11 +247,12 @@ public class FirstServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("douserexists test false");
 		return false;
 	}
 
-	protected boolean areStringsSame(String first, String second) {
-		if (first.equals(second)) {
+	protected boolean areStringsSameIC(String first, String second) {
+		if (first.equalsIgnoreCase(second)) {
 			return true;
 		}
 		return false;

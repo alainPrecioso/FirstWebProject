@@ -87,6 +87,9 @@
 			<form action="connect" method="post">
 				<button name="submit" value="click">Click me</button>
 			</form>
+			<a href="<c:url value="http://localhost/JSTLDemo/curl.jsp">
+                   <c:param name="mode" value="demo" />
+                  </c:url>">The c:url Action Demo</a>
 	</div>
 	<c:if test="${ !empty sessionScope.username }">
 		<div class="accordion" id="accordionExample">

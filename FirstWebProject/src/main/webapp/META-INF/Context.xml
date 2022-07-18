@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
     <Resource  name="jdbc/tp-servlet"  auth="Container"  type="javax.sql.DataSource"
-              maxActive="20"  maxIdle="10"  maxWait="100000"
+              maxTotal="20"  maxIdle="10"  maxWaitMillis="100000"
               username="root"  password="databouteilleorange"  driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost/javaee"
               validationQuery="select 1"   testOnBorrow="true"/>
