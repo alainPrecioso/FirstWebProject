@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
  */
 @SuppressWarnings("serial")
 public class FirstFilter extends HttpFilter {
+	//private static int counter = 0;
        
     /**
      * @see HttpFilter#HttpFilter()
@@ -41,7 +42,6 @@ public class FirstFilter extends HttpFilter {
 		// TODO Auto-generated method stub
 		// place your code here
 		//counter++; 
-		System.out.println("dofilter again");
 		
 		//System.out.println("dofilter test" + this.counter);
 		HttpServletRequest httpRequest = (HttpServletRequest) request;

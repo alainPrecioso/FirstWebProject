@@ -127,7 +127,6 @@ public class FirstServlet extends HttpServlet {
 			request.setAttribute("signInCheck", "username doesn't exist");
 			request.setAttribute("log", "logging");
 			index(request, response);
-			System.out.println("log in third if");
 		} 
 		
 		
@@ -149,14 +148,12 @@ public class FirstServlet extends HttpServlet {
 	protected void save(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 		if (isFieldNull(request, "username")) {
-			System.out.println("isfieldnull username");
 			request.setAttribute("signInCheck", "Username empty");
 			request.setAttribute("sign", "signing");
 			index(request, response);
 			return;
 		}
 		if (isFieldNull(request, "password")) {
-			System.out.println("isfieldnull password");
 			request.setAttribute("signInCheck", "Password empty");
 			request.setAttribute("sign", "signing");
 			index(request, response);
@@ -164,7 +161,6 @@ public class FirstServlet extends HttpServlet {
 		}
 
 		if (doUserExists(request.getParameter("username"))) {
-			System.out.println("save douserexists test");
 			request.setAttribute("signInCheck", "User already exists");
 			request.setAttribute("sign", "signing");
 			index(request, response);
@@ -239,7 +235,6 @@ public class FirstServlet extends HttpServlet {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				if (areStringsSameIC(rs.getString(2), username)) {
-					System.out.println("douserexists test true");
 					return true;
 				}
 			}
@@ -247,7 +242,6 @@ public class FirstServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("douserexists test false");
 		return false;
 	}
 
