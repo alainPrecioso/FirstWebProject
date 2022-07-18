@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
  */
 @SuppressWarnings("serial")
 public class FirstFilter extends HttpFilter {
-	int counter= 0;
        
     /**
      * @see HttpFilter#HttpFilter()
