@@ -22,6 +22,7 @@ import utils.PasswordHash;
  */
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
 	public FirstServlet() {
 		super();
@@ -29,8 +30,10 @@ public class FirstServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String submit = request.getParameter("submit");
-		switch (submit) {
+		if (request.getParameter("submit") == null) {
+			index(request, response);
+		}
+		switch (request.getParameter("submit")) {
 		case "log in":
 
 			try {
@@ -188,8 +191,14 @@ public class FirstServlet extends HttpServlet {
 			Cookie yum = new Cookie("username", request.getParameter("username"));
 			yum.setMaxAge(60 * 10);
 			response.addCookie(yum);
+			try {
+				response.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		index(request, response);
+		//index(request, response);
 	}
 	
 	protected boolean checkPassword(HttpServletRequest request) {
@@ -218,10 +227,7 @@ public class FirstServlet extends HttpServlet {
 	}
 	
 	protected boolean isFieldNull(HttpServletRequest request, String field) {
-		if (request.getParameter(field) == null) {
-			return true;
-		}
-		if (request.getParameter(field).equals("")) {
+		if (request.getParameter(field) == null || request.getParameter(field).isBlank()) {
 			return true;
 		}
 		return false;

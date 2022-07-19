@@ -24,7 +24,7 @@
 
 	<nav class="navbar">
 		<div>
-			<h1>Banner</h1>
+			<a href="connect"><h1>Home</h1></a>
 			<p>Hulk smash</p>
 		</div>
 		<div id="log">
@@ -59,7 +59,7 @@
 						<c:if test="${ !empty log }">
 							<div id="remember">
 								<label for="remember me">Remember me </label> <input
-									name="checkbox" type="checkbox" value="remember me">
+									name="checkbox" type="checkbox" value="remember me" checked>
 							</div>
 						</c:if>
 					</c:if>
@@ -77,8 +77,8 @@
 			</hl>
 			<c:forEach items="${cookie}" var="IdCookie">
 
-				<c:if test="${IdCookie.key == 'username'}">
-					<c:out value="Cookie : ${ IdCookie.value.value }" />
+				<c:if test="${IdCookie.key == 'username' && !empty sessionScope.username}">
+					<p><c:out value="Un cookie est présent, sa valeur pour la clef username est : ${ IdCookie.value.value }" /></p>
 				</c:if>
 			</c:forEach>
 			<br> <img id="skritch" src="./ressources/img/skritch.jpg"
@@ -87,9 +87,9 @@
 			<form action="connect" method="post">
 				<button name="submit" value="click">Click me</button>
 			</form>
-			<a href="<c:url value="http://localhost/JSTLDemo/curl.jsp">
+			<a href="<c:url value="/connect">
                    <c:param name="mode" value="demo" />
-                  </c:url>">The c:url Action Demo</a>
+                  </c:url>">test</a>
 	</div>
 	<c:if test="${ !empty sessionScope.username }">
 		<div class="accordion" id="accordionExample">
