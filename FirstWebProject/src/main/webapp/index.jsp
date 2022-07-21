@@ -20,7 +20,12 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 		crossorigin="anonymous"></script>
-
+		
+	<c:forEach items="${cookie}" var="IdCookie">
+		<c:if test="${IdCookie.key == 'username'}">
+			<c:set var="cookieusername" value="${IdCookie.value.value}" scope="page" />
+		</c:if>
+	</c:forEach>
 
 	<nav class="navbar">
 		<div>
@@ -33,17 +38,17 @@
 					<Strong><c:out value="${ signInCheck }" /></Strong>
 				</p>
 			</c:if>
-			<c:if test="${ !empty sessionScope.username }">
+			<c:if test="${ !empty sessionScope.user.username }">
 				<form action="connect" method="post">
-					<c:out value="Bonjour ${ sessionScope.username }" />
+					<c:out value="Bonjour ${ sessionScope.user.username }" />
 					<input name="submit" type="submit" value="disconnect">
 				</form>
 			</c:if>
-			<c:if test="${ empty sessionScope.username }">
+			<c:if test="${ empty sessionScope.user.username }">
 				<form id="login" action="connect" method="post">
 					<c:if test="${ !empty sign || !empty log}">
 						<input name="username" type="text" placeholder="username"
-							value="${ username }">
+							value="${ cookieusername}">
 						<input name="password" type="password" placeholder="password"
 							value="${ password }">
 					</c:if>
@@ -58,8 +63,8 @@
 						</c:if>
 						<c:if test="${ !empty log }">
 							<div id="remember">
-								<label for="remember me">Remember me </label> <input
-									name="checkbox" type="checkbox" value="remember me" checked>
+								<label id="rememberlabel" for="checkbox">Remember me
+								<input name="checkbox" type="checkbox" value="remember me" checked></label>
 							</div>
 						</c:if>
 					</c:if>
@@ -74,13 +79,16 @@
 	<div class="skritch">
 		<h1>
 			Skritch skritch
-			</hl>
-			<c:forEach items="${cookie}" var="IdCookie">
-
-				<c:if test="${IdCookie.key == 'username' && !empty sessionScope.username}">
-					<p><c:out value="Un cookie est présent, sa valeur pour la clef username est : ${ IdCookie.value.value }" /></p>
-				</c:if>
-			</c:forEach>
+		</hl>
+			
+			<c:if test="${ !empty sessionScope.user.videoGame }">
+				<c:out value="Your favorite video game is ${ sessionScope.user.videoGame }" /></p>
+			</c:if>
+				
+			<c:if test="${ !empty cookieusername }">
+					<p><c:out value="Un cookie user est présent : ${ cookieusername }" /></p>
+			</c:if>
+					
 			<br> <img id="skritch" src="./ressources/img/skritch.jpg"
 				alt="alt skritch">
 			<p>la balise p</p>

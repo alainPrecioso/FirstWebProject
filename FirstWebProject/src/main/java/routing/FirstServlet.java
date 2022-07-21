@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import beans.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -16,12 +17,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import utils.ConnexionFactory;
 import utils.PasswordHash;
+import utils.UserFactory;
 
 /**
  * Servlet implementation class FirstServlet
  */
 public class FirstServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2818923948779980309L;
+	private final int LIFETIME = 60 * 60 * 24;
 	
 
 	public FirstServlet() {
@@ -82,14 +88,7 @@ public class FirstServlet extends HttpServlet {
 			break;
 
 		case "disconnect":
-			request.getSession().invalidate();
-			Cookie[] yums = request.getCookies();
-			if (yums != null)
-				for (Cookie yum : yums) {
-					yum.setMaxAge(0);
-					response.addCookie(yum);
-				}
-			index(request, response);
+			disconnect(request, response);
 			break;
 
 		case "click":
@@ -184,20 +183,41 @@ public class FirstServlet extends HttpServlet {
 
 	}
 
-	protected void connectUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		session.setAttribute("username", request.getParameter("username"));
-		if (request.getParameter("checkbox") != null) {
-			Cookie yum = new Cookie("username", request.getParameter("username"));
-			yum.setMaxAge(60 * 10);
-			response.addCookie(yum);
-			try {
-				response.sendRedirect("index.jsp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	protected void disconnect(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
+		Cookie[] yums = request.getCookies();
+		if (yums != null)
+			for (Cookie yum : yums) {
+				if (yum.getName().equals("username")) {
+					yum.setMaxAge(0);
+					response.addCookie(yum);
+				}
 			}
+		try {
+			response.sendRedirect("index.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+	
+	protected void connectUser(HttpServletRequest request, HttpServletResponse response) {
+//		HttpSession session = request.getSession();
+//		session.setAttribute("user", UserFactory.getUser(request.getParameter("username")));
+//		//session.setAttribute("username", request.getParameter("username"));
+//		if (request.getParameter("checkbox") != null) {
+//			Cookie yum = new Cookie("username", request.getParameter("username"));
+//			yum.setMaxAge(LIFETIME);
+//			yum.setHttpOnly(true);
+//			yum.setComment("user autologin");
+//			response.addCookie(yum);
+//			try {
+//				response.sendRedirect("index.jsp");
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		//index(request, response);
 	}
 	

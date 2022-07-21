@@ -11,13 +11,18 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class FirstFilter
  */
-@SuppressWarnings("serial")
 public class FirstFilter extends HttpFilter {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8150861548078986062L;
+
 	//private static int counter = 0;
        
     /**
@@ -45,12 +50,13 @@ public class FirstFilter extends HttpFilter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		
 		Cookie[] yums = httpRequest.getCookies();
-		if (yums != null && request.getParameter("submit") == null) {
+		if (yums != null && httpRequest.getParameter("submit") == null && httpRequest.getSession().getAttribute("username") == null ) {
             for (Cookie yum : yums) {
                 if (yum.getName().equals("username")) {
-                    request.setAttribute("username", yum.getValue());
+                	yum.setMaxAge(60 * 10);
                     HttpSession session = httpRequest.getSession();
         			session.setAttribute("username", yum.getValue());
+        			((HttpServletResponse) response).addCookie(yum);
         			chain.doFilter(request, response);
         			return;
                 }
