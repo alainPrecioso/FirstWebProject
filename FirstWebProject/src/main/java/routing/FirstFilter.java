@@ -47,22 +47,22 @@ public class FirstFilter extends HttpFilter {
 		// TODO Auto-generated method stub
 		// place your code here
 		
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		
-		Cookie[] yums = httpRequest.getCookies();
-		if (yums != null && httpRequest.getParameter("submit") == null && httpRequest.getSession().getAttribute("username") == null ) {
-            for (Cookie yum : yums) {
-                if (yum.getName().equals("username")) {
-                	yum.setMaxAge(60 * 10);
-                    HttpSession session = httpRequest.getSession();
-        			session.setAttribute("username", yum.getValue());
-        			((HttpServletResponse) response).addCookie(yum);
-        			chain.doFilter(request, response);
-        			return;
-                }
-            }
-        }
-		
+//		HttpServletRequest httpRequest = (HttpServletRequest) request;
+//		
+//		Cookie[] yums = httpRequest.getCookies();
+//		if (yums != null && httpRequest.getParameter("submit") == null && httpRequest.getSession().getAttribute("username") == null ) {
+//            for (Cookie yum : yums) {
+//                if (yum.getName().equals("username")) {
+//                	yum.setMaxAge(60 * 10);
+//                    HttpSession session = httpRequest.getSession();
+//        			session.setAttribute("username", yum.getValue());
+//        			((HttpServletResponse) response).addCookie(yum);
+//        			chain.doFilter(request, response);
+//        			return;
+//                }
+//            }
+//        }
+//		
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

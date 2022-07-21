@@ -202,22 +202,22 @@ public class FirstServlet extends HttpServlet {
 	}
 	
 	protected void connectUser(HttpServletRequest request, HttpServletResponse response) {
-//		HttpSession session = request.getSession();
-//		session.setAttribute("user", UserFactory.getUser(request.getParameter("username")));
-//		//session.setAttribute("username", request.getParameter("username"));
-//		if (request.getParameter("checkbox") != null) {
-//			Cookie yum = new Cookie("username", request.getParameter("username"));
-//			yum.setMaxAge(LIFETIME);
-//			yum.setHttpOnly(true);
-//			yum.setComment("user autologin");
-//			response.addCookie(yum);
-//			try {
-//				response.sendRedirect("index.jsp");
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+		HttpSession session = request.getSession();
+		session.setAttribute("user", UserFactory.getUser(request.getParameter("username")));
+		//session.setAttribute("username", request.getParameter("username"));
+		if (request.getParameter("checkbox") != null) {
+			Cookie yum = new Cookie("username", request.getParameter("username"));
+			yum.setMaxAge(LIFETIME);
+			yum.setHttpOnly(true);
+			yum.setComment("user autologin");
+			response.addCookie(yum);
+			try {
+				response.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		//index(request, response);
 	}
 	

@@ -8,15 +8,14 @@ import beans.User;
 
 public class UserFactory {
 	
-	private static User user = null;
 	
 	
 	public static User getUser (String username) {
-		user = new User();
+		User user = new User();
 		user.setUsername(username);
 		
-		PreparedStatement ps;
 		try {
+			PreparedStatement ps;
 			ps = ConnexionFactory.getConnect()
 					.prepareStatement("SELECT * FROM javaee.users WHERE username=?");
 			ps.setString(1, username);
