@@ -1,6 +1,5 @@
 package utils;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,17 +9,10 @@ public class UserFactory {
 	
 	
 	
-	public static User getUser (String username) {
+	public static User getUser (ResultSet rs) {
 		User user = new User();
-		user.setUsername(username);
-		
 		try {
-			PreparedStatement ps;
-			ps = ConnexionFactory.getConnect()
-					.prepareStatement("SELECT * FROM javaee.users WHERE username=?");
-			ps.setString(1, username);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
+			user.setUsername(rs.getString(2));
 			if (rs.getString(4) != null) {
 				user.setVideoGame(rs.getString(4));
 			}
@@ -28,8 +20,6 @@ public class UserFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return user;
 	}
 

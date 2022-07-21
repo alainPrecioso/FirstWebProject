@@ -1,12 +1,7 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +13,7 @@ public class ConnexionFactory {
 	
 	
 	
-	private ConnexionFactory() throws SQLException {
+	private ConnexionFactory() {
 		
 		try {
 		    // lecture du contexte JDNI de notre servlet
@@ -35,52 +30,13 @@ public class ConnexionFactory {
 		    // gestion de l'exception
 		}
 		
-//		String[] config = {"jdbc:mysql://127.0.0.1:3306/javaee", "root", "databouteilleorange"};
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			ConnexionFactory.connect = DriverManager.getConnection(config[0], config[1], config[2]);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	
-	public static Connection getConnect() throws SQLException {
+	public static Connection getConnect() {
 		if (connect == null) {
-			try {
-				new ConnexionFactory();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			new ConnexionFactory();
 		}
 		return connect;
-	}
-
-	private static String[] loadConfig(String path) {
-		String[] str = new String[3];
-		try {
-			FileReader fr = new FileReader(path);
-			BufferedReader br = new BufferedReader(fr);
-			for (int i=0; i<3; i++) {
-				try {
-					str[i] = br.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		} catch (FileNotFoundException e) {
-			//e.printStackTrace();
-			e.printStackTrace();
-		}
-		return str;
 	}
 }

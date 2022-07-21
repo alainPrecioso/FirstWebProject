@@ -61,16 +61,16 @@
 						<c:if test="${ empty log && empty sign}">
 							<input name="submit" type="submit" value="sign in">
 						</c:if>
-						<c:if test="${ !empty log }">
+					</c:if>
+					<c:if test="${ !empty sign }">
+						<input name="submit" type="submit" value="save">
+					</c:if>
+						<c:if test="${ !empty log || !empty sign}">
 							<div id="remember">
 								<label id="rememberlabel" for="checkbox">Remember me
 								<input name="checkbox" type="checkbox" value="remember me" checked></label>
 							</div>
 						</c:if>
-					</c:if>
-					<c:if test="${ !empty sign }">
-						<input name="submit" type="submit" value="save">
-					</c:if>
 				</form>
 			</c:if>
 		</div>
